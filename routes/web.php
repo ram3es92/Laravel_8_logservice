@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\DataLogger;
 use App\Models\News;
 use App\Events\NewsHidden;
+use App\Events\UserRegistered;
+
+Route::get('/test-event', function () {
+    event(new NewsHidden('Иван', 'ivan@example.com'));
+    return 'Событие отправлено!';
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,12 +22,13 @@ Route::middleware([DataLogger::class])->group(function () {
 });
 
 Route::get('news/create-test', function () {
+    event(new NewsHidden('Иван', 'ivan@example.com'));
+    $news = News::create([
+        'title' => 'Тестовая новость',
+        'content' => 'Это контент тестовой новости.'
+    ]);
 
-    $news = new News();
-    $news->title = 'Test news title';
-    $news->body = 'Test news body';
-    $news->save();
-    return $news;
+    return "Новость '{$news->title}' успешно создана!";
 });
 
 Route::get('/news/{id}/hide', function ($id) {
