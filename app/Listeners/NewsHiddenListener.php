@@ -21,6 +21,7 @@ class NewsHiddenListener
      */
     public function handle(object $event): void
     {
-        Log::info('News' . $event->news->id . 'hidden');
+        Log::info('NewsHiddenListener: handle method called');
+        Log::info('News ' . $event->news['id'] . ' hidden');
     }
 }
