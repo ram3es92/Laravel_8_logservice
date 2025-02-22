@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Models\Log;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Carbon; // Добавляем Carbon
+use Illuminate\Support\Carbon; 
 
 class DataLogger
 {
@@ -27,20 +27,19 @@ class DataLogger
 
                 $log = new Log();
 
-                // ✅ Исправлено: Правильный формат даты
+                
                 $log->time = Carbon::now()->format('Y-m-d H:i:s');
 
-                $log->duration = number_format($endTime - LARAVEL_START, 3); // Исправлена ошибка `=` вместо `-`
+                $log->duration = number_format($endTime - LARAVEL_START, 3);
 
                 $log->ip = $request->ip();
                 $log->url = $request->fullUrl();
                 $log->method = $request->method();
                 $log->input = $request->getContent();
 
-                $log->save(); // Сохраняем запись в базу данных
+                $log->save(); 
 
             } else {
-                // Запись в файл, если БД недоступна
                 $endTime = microtime(true);
 
                 $filename = 'api_datalogger_' . date('d-m-y') . '.log';
