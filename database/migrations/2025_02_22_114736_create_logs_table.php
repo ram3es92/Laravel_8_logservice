@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->datetime('time');
+            $table->id();
+            $table->timestamp('time')->default(now());
             $table->integer('duration');
-            $table->string('ip',100)->nullable();
-            $table->string('url',255)->nullable();
-            $table->string('method',10)->nullable();
-            $table->string('input')->nullable();
+            $table->string('ip');
+            $table->string('url');
+            $table->string('method');
+            $table->text('input');
+            $table->timestamps();
         });
     }
 
