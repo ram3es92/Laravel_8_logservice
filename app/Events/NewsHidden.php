@@ -18,10 +18,10 @@ class NewsHidden
     /**
      * Create a new event instance.
      */
-    public function __construct(News $news)
-    {
-        $this->news = $news;
-    }
+    public function __construct(
+        public string $name,
+        public string $email
+    ) {}
 
     /**
      * Get the channels the event should broadcast on.
